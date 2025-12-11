@@ -1,62 +1,68 @@
 package controllers;
 
-import java.util.EmptyStackException;
 import models.Node;
 
 public class Stack<T> {
 
     private Node<T> top;
-    private int size;
 
     public Stack() {
         this.top = null;
-        this.size = 0;
     }
 
+    
     public void push(T data) {
         Node<T> newNode = new Node<T>(data);
         newNode.setNext(top);
         top = newNode;
-        size++;
     }
 
+    
     public T pop() {
-        if (top == null) {
-            throw new EmptyStackException();
+        if (isEmpty()) {
+            return null;  
         }
         T data = top.getValue();
         top = top.getNext();
-        size--;
         return data;
     }
 
+    
     public T peek() {
-        if (top == null) {
-            throw new EmptyStackException();
+        if (isEmpty()) {
+            return null;
         }
         return top.getValue();
     }
 
+    
     public boolean isEmpty() {
         return top == null;
     }
 
+   
     public int size() {
-        return size;
+        int count = 0;
+        Node<T> aux = top;
+        while (aux != null) {
+            count++;
+            aux = aux.getNext();
+        }
+        return count;
     }
 
-    public void printlnNodes() {
-        Node<T> current = top;
-
-        if (current == null) {
-            System.out.println("Stack vacío.");
+    
+    public void printAllNodes() {
+        if (isEmpty()) {
+            System.out.println("La pila está vacía.");
             return;
         }
-
-        System.out.println("Contenido del Stack:");
+        Node<T> current = top;
+        System.out.print("Cima -> ");
         while (current != null) {
-            System.out.println(current.getValue());
+            System.out.print(current.getValue() + " -> ");
             current = current.getNext();
         }
+        System.out.println("FIN");
     }
 }

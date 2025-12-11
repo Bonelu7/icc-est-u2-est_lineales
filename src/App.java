@@ -1,44 +1,57 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import controllers.Stack;    
+import controllers.ListaEnlazada;
+import controllers.Queue;
 import models.Node;
 import models.Person;
 
 public class App {
-
     public static void main(String[] args) {
+        Node<Person> nodeJ = new Node<Person>(new Person("Juan", 30));
+        Node<Person> nodeM = new Node<Person>(new Person("Maria", 35));
+        Node<Person> nodeP = new Node<Person>(new Person("Pepito", 31));
+        Node<Person> nodeD = new Node<Person>(new Person("Diego", 25));
 
-        Node<Person> node1 = new Node<Person>(new Person("Juan", 30));
-        Node<Person> node2 = new Node<Person>(new Person("Maria", 35));
-        Node<Person> node3 = new Node<Person>(new Person("Pepito", 25));
-        Node<Person> node4 = new Node<Person>(new Person("Diego", 30));
+        nodeJ.setNext(nodeM);
+        nodeM.setNext(nodeP);
+        nodeP.setNext(nodeD);
 
-        node1.setNext(node2);
-        node2.setNext(node3);
-        node3.setNext(node4);
+        System.out.println(nodeJ.toString());
+        System.out.println("");
 
-        System.out.println(node1.toString());
-
-        
         runStackExample();
+        
     }
 
-    public static void runStackExample() {
+    public static void runStackExample(){
+        Queue<Person> persons = new Queue<Person>();
+        persons.enqueue(new Person("Juan", 30));
+        persons.enqueue(new Person("Maria", 35));
+        persons.enqueue(new Person("Pepito", 32));
+        persons.enqueue(new Person("Diego", 31));
+        System.out.println("Size=" + persons.size());
+        persons.pritnAllNodes();
+        System.out.println(persons.dequeue());
+        System.out.println("Primera" + persons.getFirst());
+        System.out.println("Ultima" + persons.getLast());
+        System.out.println("Size=" + persons.size());
+        persons.pritnAllNodes();
+    }
 
-        Stack<Person> persons = new Stack<Person>();
-
-        persons.push(new Person("Juan", 30));
-        persons.push(new Person("Maria", 35));
-        persons.push(new Person("Pepito", 32));
-        persons.push(new Person("Diego", 31));
-
-        System.out.println("Size = " + persons.size());
-        persons.printlnNodes();
-
-        System.out.println(persons.pop());
-
-        System.out.println("Size = " + persons.size());
-        persons.printlnNodes();
+    public static void runLinkedListExample() {
+        ListaEnlazada<Person> persons = new ListaEnlazada<Person>();
+        persons.append(new Person("Juan", 30));
+        persons.append(new Person("Maria", 35));
+        persons.append(new Person("Pepito", 32));
+        persons.append(new Person("Diego", 31));
+        System.out.println("Size=" + persons.size());
+        persons.printAllNodes();
+        persons.deleteNode(new Person("Pepito", 32));
+        persons.printAllNodes();
+        persons.deleteFirst();
+        persons.printAllNodes();
+        persons.deleteLast();
+        persons.printAllNodes();
+        System.out.println("Size=" + persons.size());
+        
     }
 }
+
